@@ -1,0 +1,94 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/courses/desdigsys2/2018s/dds218s11/ex-1/lab3
+T_opt
+!s110 1517480992
+VTaI5eeRP`5Tl9zg;_cjiZ3
+04 9 4 work test_fifo fast 0
+=1-90b11c1d54d8-5a72ec20-39853-e2a
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.5c;63
+vfifo
+Z2 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z3 !s110 1517480990
+!i10b 1
+!s100 ?fnKl;BiB@bD:=nng1lcZ1
+I`IUFGTBaW`i5Rg<RRKYX60
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s105 fifo_v_unit
+S1
+R0
+Z5 w1517238336
+8fifo.v
+Ffifo.v
+L0 4
+Z6 OL;L;10.5c;63
+r1
+!s85 0
+31
+Z7 !s108 1517480990.000000
+Z8 !s107 test_fifo.sv|fifo_property.sv|fifo.v|
+Z9 !s90 -sv|fifo.v|fifo_property.sv|test_fifo.sv|+define+check7|
+!i113 0
+Z10 o-sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z11 !s92 -sv +define+check7 -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vfifo_property
+R2
+R3
+!i10b 1
+!s100 KocDF;?=@z5b>YDQ371a]2
+IaiVSe0HBFjKeCm[l9W`M^2
+R4
+!s105 fifo_property_sv_unit
+S1
+R0
+w1517480984
+8fifo_property.sv
+Ffifo_property.sv
+L0 5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vtest_fifo
+R2
+R3
+!i10b 1
+!s100 HF7X_LQ=^0c?J:lh5kXaf0
+Ii[Kcb2>f;jTj<[;81kmSH1
+R4
+!s105 test_fifo_sv_unit
+S1
+R0
+R5
+8test_fifo.sv
+Ftest_fifo.sv
+L0 1
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
