@@ -1,0 +1,95 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/courses/desdigsys2/2018s/dds218s11/ex-2/lab9_old
+Ealu
+Z1 w1518183255
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8alu.vhd
+Z6 Falu.vhd
+l0
+L5
+VfA2@ORYGgnBO[NU<J;Jd62
+!s100 X8WYh1@g@fl^=;8bZz>zI0
+Z7 OL;C;10.5c;63
+32
+Z8 !s110 1518183259
+!i10b 1
+Z9 !s108 1518183259.000000
+Z10 !s90 alu.vhd|
+Z11 !s107 alu.vhd|
+!i113 0
+Z12 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+DEx4 work 3 alu 0 22 fA2@ORYGgnBO[NU<J;Jd62
+l18
+L13
+VUmak:da_9lX_]ci3Q]8@z0
+!s100 hUM72W=Mg<I38`PbTXi1f3
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 0
+R12
+valu_tb
+Z13 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!i10b 1
+!s100 zWjRoLo7_H8<G4`z2dQ1D1
+IRW2OniBb?J1N<f>=ejOZe0
+VDg1SIo80bB@j0V0VzS_@n1
+!s105 alu_tb_sv_unit
+S1
+R0
+Z14 w1518183171
+Z15 8alu_tb.sv
+Z16 Falu_tb.sv
+L0 5
+Z17 OL;L;10.5c;63
+Z18 !s108 1518183258.000000
+Z19 !s107 alu_packet.sv|alu_tb.sv|
+Z20 !s90 +cover=bcefsx|-sv|alu_tb.sv|
+!i113 0
+Z21 !s102 +cover=bcefsx
+Z22 o+cover=bcefsx -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z23 tCvgOpt 0
+Xalu_tb_sv_unit
+R13
+VaPAcSR6dIAjKVL>fUR@PL1
+r1
+!s85 0
+31
+!i10b 1
+!s100 e`FT1OmEgn6gUGgfLYc<Q0
+IaPAcSR6dIAjKVL>fUR@PL1
+!i103 1
+S1
+R0
+R14
+R15
+R16
+Falu_packet.sv
+L0 3
+R17
+R18
+R19
+R20
+!i113 0
+R21
+R22
+R23

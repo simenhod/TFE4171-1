@@ -1,0 +1,10 @@
+# vsim -c -coverage alu_tb -do "run 1000ns; coverage report -memory -cvg -details -file coverage_rep.txt;exit" 
+# Start time: 14:34:20 on Feb 09,2018
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: alu_tb.sv(24): The actual (a) and formal (a) for a ref must be equivalent types.
+# ** Error: alu_tb.sv(24): The actual (b) and formal (b) for a ref must be equivalent types.
+# ** Error: alu_tb.sv(24): The actual (op) and formal (op) for a ref must be equivalent types.
+# Optimization failed
+# Error loading design
+# End time: 14:34:21 on Feb 09,2018, Elapsed time: 0:00:01
+# Errors: 3, Warnings: 0

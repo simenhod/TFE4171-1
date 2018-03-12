@@ -1,0 +1,448 @@
+COVERGROUP COVERAGE:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
+                                                                                                                                                Memory              Time  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TYPE /alu_tb/alu_cg                                    35.5%        100    Uncovered                        38.0KB              1.7KB              7.4KB               0 ns 
+    covered/total bins:                                    14        398                                  38.0KB              1.7KB              7.4KB               0 ns 
+    missing/total bins:                                   384        398                                  38.0KB              1.7KB              7.4KB               0 ns 
+    % Hit:                                               3.5%        100                                  38.0KB              1.7KB              7.4KB               0 ns 
+    Coverpoint alu_cg::OP                              100.0%        100    Covered                            944B               808B               808B              10 ns 
+        covered/total bins:                                 9          9                                      na                 na                 na                 na 
+        missing/total bins:                                 0          9                                      na                 na                 na                 na 
+        % Hit:                                         100.0%        100                                      na                 na                 na                 na 
+    Coverpoint alu_cg::A                                40.0%        100    Uncovered                          648B               632B               632B              10 ns 
+        covered/total bins:                                 2          5                                      na                 na                 na                 na 
+        missing/total bins:                                 3          5                                      na                 na                 na                 na 
+        % Hit:                                          40.0%        100                                      na                 na                 na                 na 
+    Coverpoint alu_cg::B                                 1.5%        100    Uncovered                         3.8KB              5.2KB              5.2KB              10 ns 
+        covered/total bins:                                 1         64                                      na                 na                 na                 na 
+        missing/total bins:                                63         64                                      na                 na                 na                 na 
+        % Hit:                                           1.5%        100                                      na                 na                 na                 na 
+    Cross alu_cg::AB                                     0.6%        100    Uncovered                        30.6KB               240B               576B            1000 ns 
+        covered/total bins:                                 2        320                                      na                 na                 na                 na 
+        missing/total bins:                               318        320                                      na                 na                 na                 na 
+        % Hit:                                           0.6%        100                                      na                 na                 na                 na 
+ Covergroup instance \/alu_tb/alu_inst                  35.5%        100    Uncovered                        38.0KB              1.7KB              7.4KB               0 ns 
+    covered/total bins:                                    14        398                                  38.0KB              1.7KB              7.4KB               0 ns 
+    missing/total bins:                                   384        398                                  38.0KB              1.7KB              7.4KB               0 ns 
+    % Hit:                                               3.5%        100                                  38.0KB              1.7KB              7.4KB               0 ns 
+    Coverpoint OP                                      100.0%        100    Covered                            944B               808B               808B              10 ns 
+        covered/total bins:                                 9          9                                      na                 na                 na                 na 
+        missing/total bins:                                 0          9                                      na                 na                 na                 na 
+        % Hit:                                         100.0%        100                                      na                 na                 na                 na 
+        bin Add                                            16          1    Covered                              na                 na                 na                 na 
+        bin Sub                                             6          1    Covered                              na                 na                 na                 na 
+        bin Not                                             2          1    Covered                              na                 na                 na                 na 
+        bin Nand                                           10          1    Covered                              na                 na                 na                 na 
+        bin Nor                                             6          1    Covered                              na                 na                 na                 na 
+        bin And                                            24          1    Covered                              na                 na                 na                 na 
+        bin Or                                             14          1    Covered                              na                 na                 na                 na 
+        bin Xor                                            10          1    Covered                              na                 na                 na                 na 
+        bin Mul                                            12          1    Covered                              na                 na                 na                 na 
+    Coverpoint A                                        40.0%        100    Uncovered                          648B               632B               632B              10 ns 
+        covered/total bins:                                 2          5                                      na                 na                 na                 na 
+        missing/total bins:                                 3          5                                      na                 na                 na                 na 
+        % Hit:                                          40.0%        100                                      na                 na                 na                 na 
+        bin Zero                                            2          1    Covered                              na                 na                 na                 na 
+        bin Small                                           0          1    ZERO                                 na                 na                 na                 na 
+        bin Hunds[0]                                        0          1    ZERO                                 na                 na                 na                 na 
+        bin Hunds[1]                                        0          1    ZERO                                 na                 na                 na                 na 
+        bin Large                                          98          1    Covered                              na                 na                 na                 na 
+    Coverpoint B                                         1.5%        100    Uncovered                         3.8KB              5.2KB              5.2KB              10 ns 
+        covered/total bins:                                 1         64                                      na                 na                 na                 na 
+        missing/total bins:                                63         64                                      na                 na                 na                 na 
+        % Hit:                                           1.5%        100                                      na                 na                 na                 na 
+        bin auto[0:67108863]                              100          1    Covered                              na                 na                 na                 na 
+        bin auto[67108864:134217727]                        0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[134217728:201326591]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[201326592:268435455]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[268435456:335544319]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[335544320:402653183]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[402653184:469762047]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[469762048:536870911]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[536870912:603979775]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[603979776:671088639]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[671088640:738197503]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[738197504:805306367]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[805306368:872415231]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[872415232:939524095]                       0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[939524096:1006632959]                      0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1006632960:1073741823]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1073741824:1140850687]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1140850688:1207959551]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1207959552:1275068415]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1275068416:1342177279]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1342177280:1409286143]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1409286144:1476395007]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1476395008:1543503871]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1543503872:1610612735]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1610612736:1677721599]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1677721600:1744830463]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1744830464:1811939327]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1811939328:1879048191]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1879048192:1946157055]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[1946157056:2013265919]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2013265920:2080374783]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2080374784:2147483647]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2147483648:2214592511]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2214592512:2281701375]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2281701376:2348810239]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2348810240:2415919103]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2415919104:2483027967]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2483027968:2550136831]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2550136832:2617245695]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2617245696:2684354559]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2684354560:2751463423]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2751463424:2818572287]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2818572288:2885681151]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2885681152:2952790015]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[2952790016:3019898879]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3019898880:3087007743]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3087007744:3154116607]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3154116608:3221225471]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3221225472:3288334335]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3288334336:3355443199]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3355443200:3422552063]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3422552064:3489660927]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3489660928:3556769791]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3556769792:3623878655]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3623878656:3690987519]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3690987520:3758096383]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3758096384:3825205247]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3825205248:3892314111]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3892314112:3959422975]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[3959422976:4026531839]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[4026531840:4093640703]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[4093640704:4160749567]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[4160749568:4227858431]                     0          1    ZERO                                 na                 na                 na                 na 
+        bin auto[4227858432:4294967295]                     0          1    ZERO                                 na                 na                 na                 na 
+    Cross AB                                             0.6%        100    Uncovered                        30.6KB               240B               576B            1000 ns 
+        covered/total bins:                                 2        320                                      na                 na                 na                 na 
+        missing/total bins:                               318        320                                      na                 na                 na                 na 
+        % Hit:                                           0.6%        100                                      na                 na                 na                 na 
+        bin <Zero,auto[0:67108863]>                         2          1    Covered                              na                 na                 na                 na 
+        bin <Large,auto[0:67108863]>                       98          1    Covered                              na                 na                 na                 na 
+        bin <Small,auto[0:67108863]>                        0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[0:67108863]>                     0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[0:67108863]>                     0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[67108864:134217727]>                 0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[67108864:134217727]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[67108864:134217727]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[67108864:134217727]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[67108864:134217727]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[134217728:201326591]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[134217728:201326591]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[134217728:201326591]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[134217728:201326591]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[134217728:201326591]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[201326592:268435455]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[201326592:268435455]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[201326592:268435455]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[201326592:268435455]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[201326592:268435455]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[268435456:335544319]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[268435456:335544319]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[268435456:335544319]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[268435456:335544319]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[268435456:335544319]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[335544320:402653183]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[335544320:402653183]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[335544320:402653183]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[335544320:402653183]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[335544320:402653183]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[402653184:469762047]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[402653184:469762047]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[402653184:469762047]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[402653184:469762047]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[402653184:469762047]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[469762048:536870911]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[469762048:536870911]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[469762048:536870911]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[469762048:536870911]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[469762048:536870911]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[536870912:603979775]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[536870912:603979775]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[536870912:603979775]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[536870912:603979775]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[536870912:603979775]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[603979776:671088639]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[603979776:671088639]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[603979776:671088639]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[603979776:671088639]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[603979776:671088639]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[671088640:738197503]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[671088640:738197503]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[671088640:738197503]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[671088640:738197503]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[671088640:738197503]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[738197504:805306367]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[738197504:805306367]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[738197504:805306367]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[738197504:805306367]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[738197504:805306367]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[805306368:872415231]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[805306368:872415231]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[805306368:872415231]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[805306368:872415231]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[805306368:872415231]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[872415232:939524095]>                0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[872415232:939524095]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[872415232:939524095]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[872415232:939524095]>            0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[872415232:939524095]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[939524096:1006632959]>               0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[939524096:1006632959]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[939524096:1006632959]>           0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[939524096:1006632959]>           0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[939524096:1006632959]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1006632960:1073741823]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1006632960:1073741823]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1006632960:1073741823]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1006632960:1073741823]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1006632960:1073741823]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1073741824:1140850687]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1073741824:1140850687]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1073741824:1140850687]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1073741824:1140850687]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1073741824:1140850687]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1140850688:1207959551]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1140850688:1207959551]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1140850688:1207959551]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1140850688:1207959551]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1140850688:1207959551]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1207959552:1275068415]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1207959552:1275068415]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1207959552:1275068415]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1207959552:1275068415]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1207959552:1275068415]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1275068416:1342177279]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1275068416:1342177279]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1275068416:1342177279]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1275068416:1342177279]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1275068416:1342177279]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1342177280:1409286143]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1342177280:1409286143]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1342177280:1409286143]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1342177280:1409286143]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1342177280:1409286143]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1409286144:1476395007]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1409286144:1476395007]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1409286144:1476395007]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1409286144:1476395007]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1409286144:1476395007]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1476395008:1543503871]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1476395008:1543503871]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1476395008:1543503871]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1476395008:1543503871]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1476395008:1543503871]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1543503872:1610612735]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1543503872:1610612735]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1543503872:1610612735]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1543503872:1610612735]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1543503872:1610612735]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1610612736:1677721599]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1610612736:1677721599]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1610612736:1677721599]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1610612736:1677721599]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1610612736:1677721599]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1677721600:1744830463]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1677721600:1744830463]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1677721600:1744830463]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1677721600:1744830463]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1677721600:1744830463]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1744830464:1811939327]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1744830464:1811939327]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1744830464:1811939327]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1744830464:1811939327]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1744830464:1811939327]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1811939328:1879048191]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1811939328:1879048191]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1811939328:1879048191]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1811939328:1879048191]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1811939328:1879048191]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1879048192:1946157055]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1879048192:1946157055]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1879048192:1946157055]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1879048192:1946157055]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1879048192:1946157055]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[1946157056:2013265919]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[1946157056:2013265919]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[1946157056:2013265919]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[1946157056:2013265919]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[1946157056:2013265919]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2013265920:2080374783]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2013265920:2080374783]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2013265920:2080374783]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2013265920:2080374783]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2013265920:2080374783]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2080374784:2147483647]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2080374784:2147483647]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2080374784:2147483647]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2080374784:2147483647]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2080374784:2147483647]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2147483648:2214592511]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2147483648:2214592511]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2147483648:2214592511]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2147483648:2214592511]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2147483648:2214592511]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2214592512:2281701375]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2214592512:2281701375]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2214592512:2281701375]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2214592512:2281701375]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2214592512:2281701375]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2281701376:2348810239]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2281701376:2348810239]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2281701376:2348810239]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2281701376:2348810239]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2281701376:2348810239]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2348810240:2415919103]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2348810240:2415919103]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2348810240:2415919103]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2348810240:2415919103]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2348810240:2415919103]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2415919104:2483027967]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2415919104:2483027967]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2415919104:2483027967]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2415919104:2483027967]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2415919104:2483027967]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2483027968:2550136831]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2483027968:2550136831]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2483027968:2550136831]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2483027968:2550136831]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2483027968:2550136831]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2550136832:2617245695]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2550136832:2617245695]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2550136832:2617245695]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2550136832:2617245695]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2550136832:2617245695]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2617245696:2684354559]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2617245696:2684354559]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2617245696:2684354559]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2617245696:2684354559]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2617245696:2684354559]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2684354560:2751463423]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2684354560:2751463423]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2684354560:2751463423]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2684354560:2751463423]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2684354560:2751463423]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2751463424:2818572287]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2751463424:2818572287]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2751463424:2818572287]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2751463424:2818572287]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2751463424:2818572287]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2818572288:2885681151]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2818572288:2885681151]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2818572288:2885681151]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2818572288:2885681151]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2818572288:2885681151]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2885681152:2952790015]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2885681152:2952790015]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2885681152:2952790015]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2885681152:2952790015]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2885681152:2952790015]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[2952790016:3019898879]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[2952790016:3019898879]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[2952790016:3019898879]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[2952790016:3019898879]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[2952790016:3019898879]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3019898880:3087007743]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3019898880:3087007743]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3019898880:3087007743]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3019898880:3087007743]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3019898880:3087007743]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3087007744:3154116607]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3087007744:3154116607]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3087007744:3154116607]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3087007744:3154116607]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3087007744:3154116607]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3154116608:3221225471]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3154116608:3221225471]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3154116608:3221225471]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3154116608:3221225471]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3154116608:3221225471]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3221225472:3288334335]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3221225472:3288334335]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3221225472:3288334335]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3221225472:3288334335]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3221225472:3288334335]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3288334336:3355443199]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3288334336:3355443199]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3288334336:3355443199]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3288334336:3355443199]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3288334336:3355443199]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3355443200:3422552063]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3355443200:3422552063]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3355443200:3422552063]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3355443200:3422552063]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3355443200:3422552063]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3422552064:3489660927]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3422552064:3489660927]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3422552064:3489660927]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3422552064:3489660927]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3422552064:3489660927]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3489660928:3556769791]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3489660928:3556769791]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3489660928:3556769791]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3489660928:3556769791]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3489660928:3556769791]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3556769792:3623878655]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3556769792:3623878655]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3556769792:3623878655]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3556769792:3623878655]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3556769792:3623878655]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3623878656:3690987519]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3623878656:3690987519]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3623878656:3690987519]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3623878656:3690987519]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3623878656:3690987519]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3690987520:3758096383]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3690987520:3758096383]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3690987520:3758096383]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3690987520:3758096383]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3690987520:3758096383]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3758096384:3825205247]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3758096384:3825205247]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3758096384:3825205247]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3758096384:3825205247]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3758096384:3825205247]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3825205248:3892314111]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3825205248:3892314111]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3825205248:3892314111]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3825205248:3892314111]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3825205248:3892314111]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3892314112:3959422975]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3892314112:3959422975]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3892314112:3959422975]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3892314112:3959422975]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3892314112:3959422975]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[3959422976:4026531839]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[3959422976:4026531839]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[3959422976:4026531839]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[3959422976:4026531839]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[3959422976:4026531839]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[4026531840:4093640703]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[4026531840:4093640703]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[4026531840:4093640703]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[4026531840:4093640703]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[4026531840:4093640703]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[4093640704:4160749567]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[4093640704:4160749567]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[4093640704:4160749567]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[4093640704:4160749567]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[4093640704:4160749567]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[4160749568:4227858431]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[4160749568:4227858431]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[4160749568:4227858431]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[4160749568:4227858431]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[4160749568:4227858431]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Zero,auto[4227858432:4294967295]>              0          1    ZERO                                 na                 na                 na                 na 
+        bin <Small,auto[4227858432:4294967295]>             0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[0],auto[4227858432:4294967295]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Hunds[1],auto[4227858432:4294967295]>          0          1    ZERO                                 na                 na                 na                 na 
+        bin <Large,auto[4227858432:4294967295]>             0          1    ZERO                                 na                 na                 na                 na 
+
+TOTAL COVERGROUP COVERAGE: 35.5%  COVERGROUP TYPES: 1
+COVERGROUP MEMORY USAGE: Total 80.8KB, Peak 80.8KB at time 1000 ns for total 4 coverpoints/crosses.
+CONSTRAINT SOLVER MEMORY USAGE: Total 224.2KB,Peak 224.2KB at time 40 ns for total 50 randomize() calls.
+CLASS OBJECTS MEMORY USAGE: Total Memory 40.5KB and Peak Memory 40.5KB used at time 480 ns for total 50 class objects.

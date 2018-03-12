@@ -1,0 +1,81 @@
+# vsim -assertdebug -coverage -c test_ex2_1 -l test-ex2-1-check5.log -do " run -all; quit" 
+# Start time: 14:39:44 on Feb 09,2018
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "ex2_1(fast)".
+# //  Questa Sim-64
+# //  Version 10.5c linux_x86_64 Jul 20 2016
+# //
+# //  Copyright 1991-2016 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.test_ex2_1(fast)
+# Loading work.ex2_1(fast)
+# Loading work.ex2_1_property(fast)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.alu(behavioral)#1
+# Loading work.alu(behavioral)#2
+# ** Warning: (vsim-3015) test-ex2-1.sv(9): [PCDPC] - Port size (4) does not match connection size (1) for port 'op1'. The port definition is at: ex2-1.v(16).
+#    Time: 0 ns  Iteration: 0  Instance: /test_ex2_1/dut File: ex2-1.v
+# ** Warning: (vsim-3015) test-ex2-1.sv(9): [PCDPC] - Port size (4) does not match connection size (1) for port 'op2'. The port definition is at: ex2-1.v(16).
+#    Time: 0 ns  Iteration: 0  Instance: /test_ex2_1/dut File: ex2-1.v
+# ** Warning: (vsim-3015) test-ex2-1.sv(9): [PCDPC] - Port size (32) does not match connection size (1) for port 'a'. The port definition is at: ex2-1.v(17).
+#    Time: 0 ns  Iteration: 0  Instance: /test_ex2_1/dut File: ex2-1.v
+# ** Warning: (vsim-8523) Cannot reference the signal "/test_ex2_1/alu_mul/R" before it has been elaborated.
+#    Time: 0 ns  Iteration: 0  Instance: /test_ex2_1 File: test-ex2-1.sv
+# ** Warning: (vsim-8822) test-ex2-1.sv(0): [TFMPC] - Missing Verilog connection for formal VHDL port 'R'.
+#    Time: 0 ns  Iteration: 0  Instance: /test_ex2_1 File: test-ex2-1.sv
+#  run -all
+#          5  rst=0 clk=1 validi=1 DIN=1 valido=x DOUT=0 a=x R1=0 R2=0
+#         15  rst=1 clk=1 validi=1 DIN=1 valido=0 DOUT=0 a=0 R1=0 R2=0
+#         25  rst=0 clk=1 validi=1 DIN=1 valido=0 DOUT=1 a=0 R1=0 R2=1
+#         35  rst=0 clk=1 validi=0 DIN=2 valido=0 DOUT=1 a=1 R1=0 R2=1
+#                   35  		VALIDO CHECK FAIL
+#                   35  		NOT VALIDO CHECK FAIL
+#         45  rst=0 clk=1 validi=1 DIN=3 valido=0 DOUT=2 a=2 R1=2 R2=2
+#         55  rst=0 clk=1 validi=0 DIN=4 valido=0 DOUT=5 a=3 R1=6 R2=5
+#         65  rst=0 clk=1 validi=1 DIN=5 valido=0 DOUT=10 a=4 R1=12 R2=10
+#         75  rst=0 clk=1 validi=1 DIN=6 valido=0 DOUT=17 a=5 R1=20 R2=17
+#         85  rst=0 clk=1 validi=0 DIN=7 valido=0 DOUT=26 a=6 R1=30 R2=26
+#         95  rst=0 clk=1 validi=0 DIN=8 valido=0 DOUT=37 a=7 R1=42 R2=37
+#        105  rst=0 clk=1 validi=1 DIN=9 valido=0 DOUT=50 a=8 R1=56 R2=50
+#        115  rst=0 clk=1 validi=1 DIN=10 valido=0 DOUT=65 a=9 R1=72 R2=65
+#        125  rst=0 clk=1 validi=1 DIN=11 valido=0 DOUT=82 a=10 R1=90 R2=82
+#        135  rst=0 clk=1 validi=0 DIN=12 valido=1 DOUT=101 a=11 R1=110 R2=101
+#        145  rst=0 clk=1 validi=1 DIN=13 valido=0 DOUT=122 a=12 R1=132 R2=122
+#        155  rst=0 clk=1 validi=1 DIN=14 valido=0 DOUT=145 a=13 R1=156 R2=145
+#        165  rst=0 clk=1 validi=1 DIN=15 valido=0 DOUT=170 a=14 R1=182 R2=170
+#        175  rst=0 clk=1 validi=1 DIN=16 valido=1 DOUT=197 a=15 R1=210 R2=197
+#        185  rst=0 clk=1 validi=1 DIN=17 valido=1 DOUT=226 a=16 R1=240 R2=226
+#        195  rst=0 clk=1 validi=0 DIN=18 valido=1 DOUT=257 a=17 R1=272 R2=257
+#        205  rst=0 clk=1 validi=1 DIN=19 valido=0 DOUT=290 a=18 R1=306 R2=290
+#        215  rst=0 clk=1 validi=1 DIN=20 valido=0 DOUT=325 a=19 R1=342 R2=325
+#        225  rst=0 clk=1 validi=1 DIN=21 valido=0 DOUT=362 a=20 R1=380 R2=362
+#        235  rst=0 clk=1 validi=1 DIN=22 valido=1 DOUT=401 a=21 R1=420 R2=401
+#        245  rst=0 clk=1 validi=0 DIN=23 valido=1 DOUT=442 a=22 R1=462 R2=442
+#        255  rst=0 clk=1 validi=0 DIN=24 valido=0 DOUT=485 a=23 R1=506 R2=485
+#        265  rst=0 clk=1 validi=1 DIN=25 valido=0 DOUT=530 a=24 R1=552 R2=530
+#        275  rst=0 clk=1 validi=1 DIN=26 valido=0 DOUT=577 a=25 R1=600 R2=577
+#        285  rst=0 clk=1 validi=1 DIN=27 valido=0 DOUT=626 a=26 R1=650 R2=626
+#        295  rst=0 clk=1 validi=1 DIN=28 valido=1 DOUT=677 a=27 R1=702 R2=677
+#        305  rst=0 clk=1 validi=1 DIN=29 valido=1 DOUT=730 a=28 R1=756 R2=730
+#        315  rst=0 clk=1 validi=1 DIN=30 valido=1 DOUT=785 a=29 R1=812 R2=785
+#        325  rst=0 clk=1 validi=0 DIN=31 valido=1 DOUT=842 a=30 R1=870 R2=842
+#        335  rst=0 clk=1 validi=0 DIN=31 valido=0 DOUT=901 a=31 R1=930 R2=901
+# ** Note: Data structure takes 6772872 bytes of memory
+#          Process time 0.01 seconds
+#          $finish    : test-ex2-1.sv(46)
+#    Time: 335 ns  Iteration: 1  Instance: /test_ex2_1
+# End time: 14:39:48 on Feb 09,2018, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 5
