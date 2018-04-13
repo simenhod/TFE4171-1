@@ -1,8 +1,3 @@
-#//////////////////////////////////////////////////
-#// Title:   simualte
-#// Author:  
-#// Date:    
-#//////////////////////////////////////////////////
 
 rm -rf work
 vlib work
@@ -17,3 +12,5 @@ echo "Simulating hdlc"
 vsim -assertdebug -c -voptargs="+acc" test_hdlc bind_hdlc -do "
 log -r *
 run -all; exit"
+
+
