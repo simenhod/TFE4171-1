@@ -1,0 +1,79 @@
+// @lang=sva @ts=2
+
+module arbiter_property_suite(clk,reset,request_i,grant_o,free_i,state_s);
+
+input logic clk;
+input logic reset;
+input logic [1:0] request_i;
+input logic [1:0] grant_o;
+input logic free_i;
+input logic state_s;
+
+parameter IDLE = 1'b0;
+parameter BUSY = 1'b1;
+
+
+// sequence definition
+
+sequence seq_c_req;
+  free_i && request_i == 2'b11;
+endsequence
+
+sequence seq_m0_then_m1;
+	grant_o == 2'b01 ##1 (grant_o == 2'b00)[*1:$] ##1 grant_o == 2'b10;
+endsequence
+
+sequence seq_m1_then_m0;
+	grant_o == 2'b10 ##1 (grant_o == 2'b00)[*1:$] ##1 grant_o == 2'b01;
+endsequence
+
+// property definition
+
+
+//Task 4.1
+property behavior_reset;
+ @(posedge clk) reset implies (state_s == IDLE) && (grant_o == 2'b00); //ok
+endproperty
+
+//Task 4.2
+property behavior_competing;
+	@(posedge clk) disable iff (reset) $fell(reset) ##0 request_i == 2'b11 && free_i implies ##1 grant_o == 2'b01;
+endproperty
+
+property assume_grant_free_;
+ 	@(posedge clk) grant_o != 2'b00 implies !free_i;
+endproperty
+
+//Task 4.3
+property behavoir_no_req_gnt;
+    @(posedge clk) request_i == 2'b00 implies ##1 grant_o == 2'b00;
+endproperty
+
+//Task 4.4
+property behavoir_s_req;
+   @(posedge clk) disable iff (reset) state_s == IDLE && (request_i == 2'b01 || request_i ==2'b10) && free_i implies ##1 grant_o == $past(request_i) ##1 state_s == IDLE;
+endproperty
+
+//Task 4.5A
+property behavoir_c_req;
+		// TODO: extend to check that the grants alternate between the two masters
+	@(posedge clk)	disable iff (reset) seq_c_req implies ##1 (grant_o[0] ^ grant_o[1]);
+endproperty
+
+//Task 4.5B
+property behavoir_cc_req; // (request_i == 0)[*1:$]
+		@(posedge clk) disable iff (reset) seq_c_req ##1 !free_i[*0:$] ##1 seq_c_req implies ##1 (seq_m0_then_m1 or seq_m1_then_m0);
+endproperty
+
+// assert, assume statement
+assume property (assume_grant_free_);
+a_reset: assert property (behavior_reset);
+a_competing: assert property (behavior_competing);
+a_no_req_gnt : assert property (behavoir_no_req_gnt);
+a_s_req : assert property  (behavoir_s_req);
+a_c_req : assert property (behavoir_c_req);
+a_cc_req : assert property (behavoir_cc_req);
+endmodule
+
+// bind statement
+bind arbiter arbiter_property_suite(.*);

@@ -1,0 +1,45 @@
+// @lang=sva @ts=2
+
+module atm_property_suite(clk,error_i,multiple_i,correct_o,dismiss_o);
+
+input logic clk;
+input logic error_i, multiple_i;
+input logic correct_o, dismiss_o;
+
+// sequence definitions
+
+// property definitions
+
+property behavoir_1;
+	@(posedge clk) !(correct_o && dismiss_o);
+endproperty 
+
+property behavoir_2;
+	@(posedge clk)  !(error_i) |-> !(correct_o || dismiss_o);
+endproperty
+
+property behavoir_3;
+	@(posedge clk) error_i && multiple_i |-> dismiss_o;
+endproperty
+
+property behavoir_4;
+	@(posedge clk)	$rose(error_i) && !(multiple_i) implies correct_o;
+endproperty
+
+property behavoir_5;
+	@(posedge clk) $stable(error_i) && error_i implies dismiss_o;
+endproperty
+
+// make assertion on properties to be checked
+
+a_behavoir_1: assert property (behavoir_1);
+a_behavoir_2: assert property (behavoir_2);
+a_behavoir_3: assert property (behavoir_3);
+a_behavoir_4: assert property (behavoir_4);
+a_behavoir_5: assert property (behavoir_5);
+
+endmodule 
+
+// bind the verification IP to the design
+
+bind atm atm_property_suite(.*);
