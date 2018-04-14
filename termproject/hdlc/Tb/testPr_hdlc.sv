@@ -19,7 +19,8 @@ program testPr_hdlc(
 
     //Tests:
     Receive();
-
+    Behaviour_17();
+    
     $display("*************************************************************");
     $display("%t - Finishing Test Program", $time);
     $display("*************************************************************");
@@ -33,7 +34,6 @@ program testPr_hdlc(
     $display("* \tAssertion Errors: %0d\t  *", TbErrorCnt + uin_hdlc.ErrCntAssertions);
     $display("*                               *");
     $display("*********************************");
-
   end
 
   task init();
@@ -41,7 +41,8 @@ program testPr_hdlc(
     uin_hdlc.Rst         =   1'b0;
     uin_hdlc.Rx          =   1'b1;
     uin_hdlc.RxEN        =   1'b1;
-
+    uin_hdlc.TxEN	 =   1'b1;
+	
     TbErrorCnt = 0;
 
     #1000ns;
@@ -96,7 +97,53 @@ program testPr_hdlc(
 
     ReadAddress(3'b010 , ReadData);
     $display("Rx_SC=%h", ReadData);
+  endtask
 
+  task ReadRxSC();
+	logic [7:0] ReadData;
+	ReadAddress(3'b010, ReadData);
+	$display("Rx_SC=%b", ReadData);
+  endtask
+
+  task ReadRxBuff();
+	logic [7:0] ReadData;
+	ReadAddress(3'b011, ReadData);
+	$display("Rx_Buff=%b", ReadData);
+  endtask
+
+  task ReadRxLen();
+	logic [7:0] ReadData;
+	ReadAddress(3'b100, ReadData);
+	$display("Rx_Len=%b", ReadData);
+  endtask
+
+  task ReadTxSC();
+	logic [7:0] ReadData;
+	ReadAddress(3'b00, ReadData);
+	$display("Tx_SC=%b", ReadData);
+  endtask
+
+  task ReadTxBuff();
+	logic [7:0] ReadData;
+	ReadAddress(3'b001, ReadData);
+	$display("Tx_Buff=%b", ReadData);
+  endtask
+
+
+  task Behaviour_17();
+    logic [7:0] Data;
+    logic [7:0] Tx_Enable;
+    Data = 8'b11100111;
+    Tx_Enable = 8'b0000010;
+    
+    // Write data to Tx_Buff
+    WriteAddress(3'b001, Data);
+    // Tx_Enable
+    WriteAddress(3'b000, Tx_Enable);
+
+    // Print Tx_SC
+    @(posedge uin_hdlc.Clk);
+    ReadTxSC();
   endtask
 
 endprogram

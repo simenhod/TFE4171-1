@@ -1,11 +1,13 @@
 # vsim -assertdebug -c -voptargs="+acc" test_hdlc bind_hdlc -do "
-# 
 # log -r *
-# 
-# run -all; exit
-# " 
-# Start time: 11:42:34 on Apr 06,2018
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# run -all; exit" 
+# Start time: 16:18:39 on Apr 14,2018
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "TxFCS(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "RxBuff(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TxController(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "RxController(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "TxBuff(fast)".
 # //  Questa Sim-64
 # //  Version 10.5c linux_x86_64 Jul 20 2016
 # //
@@ -43,19 +45,21 @@
 #                    0 - Starting Test Program
 # *************************************************************
 # PASS: Receive_FlagDetect
-# Rx_SC=xx
+# Rx_SC=00
+# PASS 17: Tx_Done is high after transmission
+# Tx_SC=00000001
 # *************************************************************
-#                10250 - Finishing Test Program
+#                13750 - Finishing Test Program
 # *************************************************************
-# ** Note: $stop    : testPr_hdlc.sv(26)
-#    Time: 10250 ns  Iteration: 2  Instance: /test_hdlc/u_testPr
-# Break in Module testPr_hdlc at testPr_hdlc.sv line 26
-# Stopped at testPr_hdlc.sv line 26
+# ** Note: $stop    : testPr_hdlc.sv(27)
+#    Time: 13750 ns  Iteration: 2  Instance: /test_hdlc/u_testPr
+# Break in Module testPr_hdlc at testPr_hdlc.sv line 27
+# Stopped at testPr_hdlc.sv line 27
 #  exit
 # *********************************
 # *                               *
 # * 	Assertion Errors: 0	  *
 # *                               *
 # *********************************
-# End time: 11:42:35 on Apr 06,2018, Elapsed time: 0:00:01
+# End time: 16:18:43 on Apr 14,2018, Elapsed time: 0:00:04
 # Errors: 0, Warnings: 0

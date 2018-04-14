@@ -11,7 +11,11 @@ module bind_hdlc ();
     .Clk(uin_hdlc.Clk),
     .Rst(uin_hdlc.Rst),
     .Rx(uin_hdlc.Rx),
-    .Rx_FlagDetect(uin_hdlc.Rx_FlagDetect)
+    .Rx_FlagDetect(uin_hdlc.Rx_FlagDetect),
+    .Tx(uin_hdlc.Tx),
+    .Tx_DataAvail(uin_hdlc.Tx_DataAvail),
+    .Tx_RdBuff(uin_hdlc.Tx_RdBuff),
+    .Tx_Done(uin_hdlc.Tx_Done)
   );
 
 endmodule

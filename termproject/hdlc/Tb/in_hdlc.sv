@@ -22,16 +22,19 @@ interface in_hdlc ();
   // TX
   logic              Tx;
   logic              TxEN;
-  logic              Tx_Done;
 
   // RX
   logic              Rx;
   logic              RxEN;
-  logic              Rx_Ready;
 
   // Tx - internal
+  logic		Tx_DataAvail;
+  logic		Tx_RdBuff;
+  logic 	Tx_Done;
+  logic		Tx_ValidFrame;
  
   // Rx - internal
-  logic       Rx_FlagDetect;
+  logic		Rx_Ready; 	
+  logic       	Rx_FlagDetect;
 
 endinterface
