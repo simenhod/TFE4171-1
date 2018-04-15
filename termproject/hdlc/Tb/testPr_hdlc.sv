@@ -18,8 +18,13 @@ program testPr_hdlc(
     init();
 
     //Tests:
-    Receive();
+    //Receive();
+		$display("Behaviour 1");
+    Behaviour_1();
+		$display("Behaviour 17");
     Behaviour_17();
+    $display("Behaviour 18");
+    Behaviour_18();
     
     $display("*************************************************************");
     $display("%t - Finishing Test Program", $time);
@@ -130,20 +135,162 @@ program testPr_hdlc(
   endtask
 
 
-  task Behaviour_17();
+task Behaviour_1();
+		// Start Flag
+		Flag();
+    
+    // Address
+    for(int i = 0; i < 8; i=i+1) begin
+				uin_hdlc.Rx = 1'b0;
+				@(posedge uin_hdlc.Clk);
+		end
+
+		// Control
+		for(int i = 0; i < 8; i=i+1) begin
+				uin_hdlc.Rx = 1'b0;
+				@(posedge uin_hdlc.Clk);
+		end
+
+		// Informationa
+		for(int i = 0; i < 4; i=i+1) begin
+				uin_hdlc.Rx = 1'b1;
+				@(posedge uin_hdlc.Clk);
+				uin_hdlc.Rx = 1'b0;
+				@(posedge uin_hdlc.Clk);
+		end
+
+		//assert (Rx_Buff == Rx_Data) $display("PASS 1"); else
+		//		$error("Failed 1"); end
+
+		// FCS
+		FCS();
+
+		// End Flag
+		Flag();
+		
+		// Wait for module to finish
+		for(int i = 0; i <10; i=i+1) begin
+				@(posedge uin_hdlc.Clk);
+		end
+endtask
+
+task Behaviour_17();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
     Data = 8'b11100111;
     Tx_Enable = 8'b0000010;
-    
+
     // Write data to Tx_Buff
     WriteAddress(3'b001, Data);
+    @(posedge uin_hdlc.Clk);
+    WriteAddress(3'b001, Data);
+    @(posedge uin_hdlc.Clk);
+    
     // Tx_Enable
     WriteAddress(3'b000, Tx_Enable);
-
+    
+   // Wait for module to finish
+    for(int i = 0; i < 100; i=i+1) begin
+	@(posedge uin_hdlc.Clk);
+    end
+    
     // Print Tx_SC
-    @(posedge uin_hdlc.Clk);
     ReadTxSC();
-  endtask
+endtask
+
+task Behaviour_18();
+    logic [7:0] Data;
+    logic [7:0] Tx_Enable;
+    Data = 8'b11100111;
+    Tx_Enable = 8'b0000010;
+
+    ReadTxSC();  
+
+    // Write data to Tx_Buff
+    for(int i = 0; i < 126; i=i+1) begin
+    	WriteAddress(3'b001, Data);
+    	@(posedge uin_hdlc.Clk);
+    end
+
+    // Tx_Enable
+    WriteAddress(3'b000, Tx_Enable);
+    
+    // Print Tx_SC
+    ReadTxSC();
+endtask
+
+task Flag();
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+		@(posedge uin_hdlc.Clk);
+endtask 
+
+task AbortFrame();
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+		@(posedge uin_hdlc.Clk);
+endtask
+
+task FCS();
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+		@(posedge uin_hdlc.Clk);
+
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b1;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+    @(posedge uin_hdlc.Clk);
+    uin_hdlc.Rx = 1'b0;
+		@(posedge uin_hdlc.Clk);
+endtask
 
 endprogram

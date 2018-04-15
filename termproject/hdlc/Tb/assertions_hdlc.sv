@@ -13,7 +13,11 @@ module assertions_hdlc (
   input logic Tx,
   input logic Tx_DataAvail,
   input logic Tx_RdBuff,
-  input logic Tx_Done
+  input logic Tx_Done,
+  input logic [7:0] Tx_FrameSize,
+  input logic Tx_Full,
+  input logic Tx_ValidFrame,
+  input logic Tx_AbortFrame
   );
 
   initial begin
@@ -24,9 +28,17 @@ module assertions_hdlc (
 *	Sequences	*
 ************************/
   
-  sequence Rx_flag;
-    !Rx ##1 Rx [*6] ##1 !Rx;
-  endsequence
+sequence Rx_flag;
+	!Rx ##1 Rx [*6] ##1 !Rx;
+endsequence
+
+sequence Tx_flag;
+	!Tx ##1 Tx [*6] ##1 !Tx;
+endsequence
+
+sequence Tx_Abort;
+	Tx[*7] ##1 !Tx;
+endsequence
 
 
 /************************
@@ -39,6 +51,10 @@ property Receive_FlagDetect;
 endproperty
 
 // 1. Correct data in RX buffer according to RX input.
+/*property Behaviour_1;
+		@(posedge Clk) |-> Rx_Data == 8'b10101010
+endproperty*/
+
 
 // 2. Attempting to read RX buffer after aborted frame, frame error or dropped frame should result in zeros.
 
@@ -47,6 +63,9 @@ endproperty
 // 4. Correct TX output according to written TX buffer.
 
 // 5. Start and end of frame pattern generation (Start and end flag: 0111_1110).
+property Behaviour_5;
+	@(posedge Clk) disable iff (!Rst) !$stable(Tx_ValidFrame) && $past(!Tx_AbortFrame,2) |-> ##[0:2] Tx_flag;
+endproperty
 
 // 6. Zero insertion and removal for transparent transmission.
 
@@ -76,6 +95,9 @@ property Behaviour_17;
 endproperty
 
 // 18. Tx_Full should be asserted after writing 126 or more bytes to the TX buffer (overflow).
+property Behaviour_18;
+	@(posedge Clk) disable iff (!Rst) Tx_FrameSize==8'd126 |-> $past(Tx_Full);
+endproperty
 
 /************************
 *	Assertions	*
@@ -84,8 +106,13 @@ endproperty
 Receive_FlagDetect_Assert: assert property (Receive_FlagDetect) $display("PASS: Receive_FlagDetect");
                          	else begin $error("Flag sequence did not generate FlagDetect"); ErrCntAssertions++; end
 
+Behaviour_5_Assert: assert property (Behaviour_5) $display("PASS 5: Start and end frame generated");
+			else begin $error("Start and end frame not generated"); ErrCntAssertions++; end
 
-Behaviour_17_Assert : assert property (Behaviour_17) $display("PASS 17: Tx_Done is high after transmission");
+Behaviour_17_Assert: assert property (Behaviour_17) $display("PASS 17: Tx_Done is high after transmission");
 			else begin $error("Tx_Done is not high after transmission"); ErrCntAssertions++; end
+
+Behaviour_18_Assert: assert property (Behaviour_18) $display("PASS 18: Tx_Full set when buffer is full");
+			else begin $error("Tx_Full not set when buffer was full"); ErrCntAssertions++; end
 
 endmodule

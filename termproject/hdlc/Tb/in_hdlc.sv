@@ -32,6 +32,9 @@ interface in_hdlc ();
   logic		Tx_RdBuff;
   logic 	Tx_Done;
   logic		Tx_ValidFrame;
+  logic	[7:0] 	Tx_FrameSize;
+  logic		Tx_Full;
+  logic		Tx_AbortFrame;
  
   // Rx - internal
   logic		Rx_Ready; 	

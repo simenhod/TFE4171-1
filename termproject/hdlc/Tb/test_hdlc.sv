@@ -13,7 +13,11 @@ module test_hdlc ();
   assign uin_hdlc.Rx_FlagDetect = u_dut.Rx_FlagDetect;
   assign uin_hdlc.Tx_DataAvail = u_dut.Tx_DataAvail;
   assign uin_hdlc.Tx_RdBuff = u_dut.Tx_RdBuff;
-  
+  assign uin_hdlc.Tx_FrameSize = u_dut.Tx_FrameSize;
+  assign uin_hdlc.Tx_Full = u_dut.Tx_Full;
+  assign uin_hdlc.Tx_ValidFrame = u_dut.Tx_ValidFrame;
+  assign uin_hdlc.Tx_AbortFrame = u_dut.Tx_AbortFrame;
+
   //Clock
   always #250ns uin_hdlc.Clk = ~uin_hdlc.Clk;
 
