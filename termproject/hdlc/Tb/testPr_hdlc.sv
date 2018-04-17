@@ -26,26 +26,79 @@ initial begin
 
     //Tests:
     //Receive();
-		//$display("--- Generate Test Frame ---");
-    //GenerateTestFrame();
-		$display("--- Behaviour 1 ---");
-		//Behaviour_1();
-		$display("--- Behaviour 4 ---");
-		//Behaviour_4();
-		$display("--- Behaviour 5 ---");
-		//Behaviour_5();
-		$display("--- Behaviour 9 ---");
-		//Behaviour_9();
-		$display("--- Behaviour 10 ---");
-		//Behaviour_10();
-		$display("--- Behaviour 12 ---");
-		//Behaviour_12();
-		$display("--- Behaviour 13 ---");
+		//reset();
+		
+		$display("\n--- Behaviour 1 ---");
+		Behaviour_1();
+		reset();
+		
+		$display("\n--- Behaviour 2 ---");
+		Behaviour_2();
+		reset();
+		
+		$display("\n--- Behaviour 3 ---");
+		Behaviour_3();
+		reset();
+		
+		$display("\n--- Behaviour 4 ---");
+		Behaviour_4();
+		reset();
+		
+		$display("\n--- Behaviour 5 ---");
+		Behaviour_5();
+		reset();
+		
+		$display("\n--- Behaviour 6 ---");
+		//Behaviour_6();
+		//reset();
+		
+		$display("\n--- Behaviour 7 ---");
+		Behaviour_7();
+		reset();
+		
+		$display("\n--- Behaviour 8 ---");
+		Behaviour_8();
+		reset();
+		
+		$display("\n--- Behaviour 9 ---");
+		Behaviour_9();
+		reset();
+		
+		$display("\n--- Behaviour 10 ---");
+		Behaviour_10();
+		reset();
+		
+		$display("\n--- Behaviour 11 ---");
+		//Behaviour_11();
+		//reset();
+		
+		$display("\n--- Behaviour 12 ---");
+		Behaviour_12();
+		reset();
+		
+		$display("\n--- Behaviour 13 ---");
 		Behaviour_13();
-		$display("--- Behaviour 17 ---");
-    //Behaviour_17();
-    $display("--- Behaviour 18 ---");
-    //Behaviour_18();
+		reset();
+		
+		$display("\n--- Behaviour 14 ---");
+		Behaviour_14();
+		reset();
+		
+		$display("\n--- Behaviour 15 ---");
+		//Behaviour_15();
+		//reset();
+		
+		$display("\n--- Behaviour 16 ---");
+		//Behaviour_16();
+		//reset();
+		
+		$display("\n--- Behaviour 17 ---");
+    Behaviour_17();
+		reset();
+    
+		$display("\n--- Behaviour 18 ---");
+    Behaviour_18();
+		reset();
     
     $display("*************************************************************");
     $display("%t - Finishing Test Program", $time);
@@ -87,6 +140,132 @@ task Behaviour_1();
 				$display("PASS 1: Correct data in Rx_Buff according to RX input");
 		end else begin
 				$error("FAIL 1: Not correct data in Rx_Buff");
+		end
+endtask
+
+task Behaviour_2();
+		logic [7:0] Rx_Buff_Read;
+		logic [7:0] Rx_Buff_Fail;
+		logic [7:0] Rx_Drop;
+		logic [7:0] Data;
+		logic [8:0] Data_FrameError;
+		Rx_Buff_Fail = 8'b00000000;
+		Rx_Drop = 8'b00000010;
+		Data = 8'b11100101;
+		Data_FrameError = 9'b111100101;
+		
+		// Abort frame
+		Flag();
+		for(int i = 0; i < $size(Data); i++) begin
+				uin_hdlc.Rx = Data[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		AbortFrame();
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+		ReadAddress(Rx_Buff,Rx_Buff_Read);
+		assert (Rx_Buff_Read == Rx_Buff_Fail) begin
+				$display("PASS 2: Correct data in Rx_Buff after aborted frame");
+		end else begin
+				$error("FAIL 2: Not correct data in Rx_Buff after aborted frame");
+		end
+		
+		// Frame error
+		Flag();
+		for(int i = 0; i < $size(Data_FrameError); i++) begin
+				uin_hdlc.Rx = Data_FrameError[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+		ReadAddress(Rx_Buff,Rx_Buff_Read);
+		assert (Rx_Buff_Read == Rx_Buff_Fail) begin
+				$display("PASS 2: Correct data in Rx_Buff after frame error");
+		end else begin
+				$error("FAIL 2: Not correct data in Rx_Buff after aborted frame");
+		end
+		
+		// Rx_Drop
+		Flag();
+		for(int i = 0; i < $size(Data_FrameError); i++) begin
+				uin_hdlc.Rx = Data_FrameError[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+		WriteAddress(Rx_SC, Rx_Drop);
+		@(posedge uin_hdlc.Clk);
+		ReadAddress(Rx_Buff,Rx_Buff_Read);
+		assert (Rx_Buff_Read == Rx_Buff_Fail) begin
+				$display("PASS 2: Correct data in Rx_Buff after Rx_Drop");
+		end else begin
+				$error("FAIL 2: Not correct data in Rx_Buff after Rx_Drop");
+		end
+endtask
+
+task Behaviour_3();
+		logic [7:0] Data;
+		logic [8:0] Data_FrameError;
+		Data = 8'b11100101;
+		Data_FrameError = 9'b111100101;
+		
+		// Send normal frame
+		Flag();
+		for(int i = 0; i < 10; i++) begin
+				for(int j = 0; j < $size(Data); j++) begin
+						uin_hdlc.Rx = Data[j];
+						@(posedge uin_hdlc.Clk);
+				end
+		end
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+
+		// Overflow
+		Flag();
+		for(int i = 0; i < 130; i++) begin
+				for(int j = 0; j < $size(Data); j++) begin
+						uin_hdlc.Rx = Data[j];
+						@(posedge uin_hdlc.Clk);
+				end
+		end
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+		
+		// FrameError
+		Flag();
+		for(int i = 0; i < 10; i++) begin
+				for(int j = 0; j < $size(Data_FrameError); j++) begin
+						uin_hdlc.Rx = Data_FrameError[j];
+						@(posedge uin_hdlc.Clk);
+				end
+		end
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+
+		// AbortFrame()
+		Flag();
+		for(int i = 0; i < 10; i++) begin
+				for(int j = 0; j < $size(Data); j++) begin
+						uin_hdlc.Rx = Data[j];
+						@(posedge uin_hdlc.Clk);
+				end
+		end
+		AbortFrame();
+		Flag();
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
 		end
 endtask
 
@@ -136,6 +315,26 @@ task Behaviour_5();
     end
 endtask
 
+task Behaviour_7();
+		for(int i=0; i<8; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+endtask
+
+task Behaviour_8();
+		logic [7:0] Rx_FCSen;
+		Rx_FCSen =  8'b00100000;
+    WriteAddress(3'b010, Rx_FCSen);
+		Flag();
+		//Address();
+		//Control();
+		AbortFrame();
+		@(posedge uin_hdlc.Clk);
+		//ReadRxBuff();
+		//ReadRxSC();
+
+endtask
+
 task Behaviour_9();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
@@ -172,6 +371,7 @@ endtask
 task Behaviour_10();
 		logic [7:0] Rx_FCSen;
 		Rx_FCSen =  8'b00100000;
+		
 		// Enable Rx_FCSen
 		WriteAddress(3'b010, Rx_FCSen);
 		@(posedge uin_hdlc.Clk);
@@ -243,6 +443,37 @@ task Behaviour_13();
 
 endtask
 
+task Behaviour_14();
+		logic [7:0] numBytes;
+		logic [7:0] Data;
+		numBytes = $urandom_range(126, 1);
+		Data = 8'b11100101;
+		
+		// Send frame on Rx
+		Flag();
+		for(int i = 0; i < numBytes; i++) begin
+				for(int j = 0; j < $size(Data); j++) begin
+						uin_hdlc.Rx = Data[j];
+						@(posedge uin_hdlc.Clk);
+				end
+				//$display("Rx_FrameSize=%d", uin_hdlc.Rx_FrameSize);
+		end
+		Flag();
+
+		// Wait for module to finish
+		for(int i = 0; i <20; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+		
+		//$display("Rx_FrameSize=%d",uin_hdlc.Rx_FrameSize);
+
+		assert (uin_hdlc.Rx_FrameSize == (numBytes-2)) begin
+				$display("PASS 14: Rx_FrameSize equals number of bytes recieved in a frame");
+		end else begin
+				$error("FAIL 14: Rx_FrameSize not equal number of bytes recieved");
+		end
+endtask
+
 task Behaviour_17();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
@@ -289,6 +520,13 @@ task Behaviour_18();
 		
     // Print Tx_SC
     //ReadTxSC();
+endtask
+
+task reset();
+		uin_hdlc.Rst = 1'b0;
+		#1000ns;
+		uin_hdlc.Rst = 1'b1;
+		#1000ns;
 endtask
 
 task init();

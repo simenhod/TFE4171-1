@@ -20,6 +20,7 @@ module assertions_hdlc (
 		input logic [7:0]		Rx_FrameSize,
 		input logic					Rx_Overflow,
 		input logic					Rx_NewByte,
+		input logic					Rx_FrameError,
 		input logic					Tx,
 		input logic					Tx_DataAvail,
 		input logic					Tx_RdBuff,
@@ -44,15 +45,17 @@ sequence Rx_flag;
 		!Rx ##1 Rx [*6] ##1 !Rx;
 endsequence
 
-sequence Tx_flag;
+sequence Tx_flag_Seq;
 		!Tx ##1 Tx [*6] ##1 !Tx;
 endsequence
 
-sequence Tx_Abort;
-		Tx[*7] ##1 !Tx;
+sequence Rx_AbortFrame_Seq;
+		!Rx ##1 Rx[*7];
 endsequence
 
-
+sequence Tx_IdleFrame_Seq;
+		Tx[*8];
+endsequence
 /************************
 *	Properties	*
 ************************/
@@ -66,22 +69,40 @@ endproperty
 // --- Immediate assertion ---		
 
 // 2. Attempting to read RX buffer after aborted frame, frame error or dropped frame should result in zeros.
+// --- Immediate assertion ---		
 
 // 3. Correct bits set in RX status/control register after receiving frame.
+property Behaviour_3;
+		@(posedge Clk) disable iff (!Rst) $rose(Rx_EoF) |->
+				if(Rx_FrameError)
+						!Rx_Ready && Rx_FrameError && !Rx_AbortSignal && !Rx_Overflow
+				else if (Rx_AbortSignal)
+						$rose(Rx_Ready) && !Rx_FrameError && Rx_AbortSignal && !Rx_Overflow
+				else if (Rx_Overflow)
+						$rose(Rx_Ready) && !Rx_FrameError && !Rx_AbortSignal && Rx_Overflow
+				else
+						$rose(Rx_Ready) && !Rx_FrameError && !Rx_AbortSignal && !Rx_Overflow
+endproperty
 
 // 4. Correct TX output according to written TX buffer.
 // --- Immediate assertion ---		
 
 // 5. Start and end of frame pattern generation (Start and end flag: 0111_1110).
 property Behaviour_5;
-		@(posedge Clk) disable iff (!Rst) !$stable(Tx_ValidFrame) && $past(!Tx_AbortFrame,2) |-> ##[0:2] Tx_flag;
+		@(posedge Clk) disable iff (!Rst) !$stable(Tx_ValidFrame) && $past(!Tx_AbortFrame,2) |-> ##[0:2] Tx_flag_Seq;
 endproperty
 
 // 6. Zero insertion and removal for transparent transmission.
 
 // 7. Idle pattern generation and checking (1111_1111 when not operating).
+property Behaviour_7();
+		@(posedge Clk) disable iff (!Rst)  Tx_IdleFrame_Seq implies (!Tx_ValidFrame[*8] and !Rx_FrameError[*8]);
+endproperty
 
 // 8. Abort pattern generation and checking (1111_1110).
+property Behaviour_8;
+		@(posedge Clk) disable iff (!Rst) Rx_AbortFrame_Seq |-> ##2 $rose(Rx_AbortDetect);
+endproperty
 
 // 9. When aborting frame during transmission, Tx_AbortedTrans should be asserted.
 property Behaviour_9;
@@ -90,7 +111,7 @@ endproperty
 
 // 10. Abort pattern detected during valid frame should generate Rx_AbortSignal.
 property Behaviour_10;
-		@(posedge Clk) disable iff (!Rst) $stable(Rx_ValidFrame) && $fell(Rx_AbortDetect) |-> $rose(Rx_AbortSignal); 
+		@(posedge Clk) disable iff (!Rst) Rx_ValidFrame && $fell(Rx_AbortDetect) |-> $rose(Rx_AbortSignal); 
 endproperty
 
 // 11. CRC generation and Checking.
@@ -102,7 +123,7 @@ endproperty
 
 // 13. When receiving more than 128 bytes, Rx_Overflow should be asserted.
 property Behaviour_13;
-		@(posedge Clk) disable iff (!Rst) $fell(Rx_EoF) && Rx_FrameSize==8'd126 |-> Rx_Overflow;
+		@(posedge Clk) disable iff (!Rst) $fell(Rx_EoF) && Rx_FrameSize==8'd126 && Rx_Ready |-> Rx_Overflow;
 endproperty
 
 // 14. Rx_FrameSize should equal the number of bytes received in a frame (max. 126 bytes = 128 bytes in buffer − 2 FCS bytes).
@@ -130,8 +151,17 @@ endproperty
 Receive_FlagDetect_Assert: assert property (Receive_FlagDetect) $display("PASS: Receive_FlagDetect");
 				else begin $error("Flag sequence did not generate FlagDetect"); ErrCntAssertions++; end
 
+Behaviour_3_Assert: assert property (Behaviour_3) $display("PASS 3: Correct bits set in Rx_SC");
+				else begin $error("FAIL 3: Wrong bits set in Rx_SC"); ErrCntAssertions++; end
+
 Behaviour_5_Assert: assert property (Behaviour_5) $display("PASS 5: Start and end frame generated");
 				else begin $error("FAIL 5: Start and end frame not generated"); ErrCntAssertions++; end
+
+//Behaviour_7_Assert: assert property (Behaviour_7) $display("PASS 7: Idle pattern generated successfully");
+//				else begin $error("Failed to generate idle pattern"); ErrCntAssertions++; end
+
+Behaviour_8_Assert: assert property (Behaviour_8) $display("PASS 8: Abort pattern generated successfully");
+				else begin $error("FAIL 8: Failed to generate abort pattern"); ErrCntAssertions++; end
 
 Behaviour_9_Assert: assert property (Behaviour_9) $display("PASS 9: Tx_AbortedTrans was set on Tx_AbortFrame");
 				else begin $error("FAIL 9: Tx_AbortedTrans not set after Tx-AbortFrame"); ErrCntAssertions++; end

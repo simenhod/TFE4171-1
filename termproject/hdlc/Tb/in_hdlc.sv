@@ -48,6 +48,7 @@ interface in_hdlc ();
 		logic						Rx_AbortSignal;
 		logic						Rx_AbortDetect;
 		logic		[7:0]		Rx_FrameSize;
-		logic		[7:0]		Rx_Overflow;
+		logic						Rx_Overflow;
 		logic						Rx_NewByte;
+		logic						Rx_FrameError;
 endinterface
