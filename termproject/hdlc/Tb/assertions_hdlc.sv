@@ -127,11 +127,10 @@ property Behaviour_13;
 endproperty
 
 // 14. Rx_FrameSize should equal the number of bytes received in a frame (max. 126 bytes = 128 bytes in buffer − 2 FCS bytes).
+// --- Immediate assertion ---
 
 // 15. Rx_Ready should indicate byte(s) in RX buffer is ready to be read.
-/*property Behaviour_15;
-  @(posedge clk) disable iff (!Rst) $rose(Rx_Ready) |-> $fell()
-endproperty;*/
+
 // 16. Non-byte aligned data or error in FCS checking should result in frame error.
 
 // 17. Tx_Done should be asserted when the entire TX buffer has been read for transmission.
