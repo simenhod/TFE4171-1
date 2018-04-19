@@ -23,6 +23,7 @@ module bind_hdlc ();
 		.Rx_Overflow(uin_hdlc.Rx_Overflow),
 		.Rx_NewByte(uin_hdlc.Rx_NewByte),
 		.Rx_FrameError(uin_hdlc.Rx_FrameError),
+		.Rx_FCSerr(uin_hdlc.Rx_FCSerr),
 		.Tx(uin_hdlc.Tx),
     .Tx_DataAvail(uin_hdlc.Tx_DataAvail),
     .Tx_RdBuff(uin_hdlc.Tx_RdBuff),

@@ -51,4 +51,6 @@ interface in_hdlc ();
 		logic						Rx_Overflow;
 		logic						Rx_NewByte;
 		logic						Rx_FrameError;
+		logic						Rx_FCSerr;
+
 endinterface

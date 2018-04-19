@@ -21,6 +21,7 @@ module test_hdlc ();
 		assign uin_hdlc.Rx_Overflow = u_dut.Rx_Overflow;
 		assign uin_hdlc.Rx_NewByte = u_dut.Rx_NewByte;
 		assign uin_hdlc.Rx_FrameError = u_dut.Rx_FrameError;
+		assign uin_hdlc.Rx_FCSerr = u_dut.Rx_FCSerr;
 
 		assign uin_hdlc.Tx_DataAvail = u_dut.Tx_DataAvail;
 		assign uin_hdlc.Tx_RdBuff = u_dut.Tx_RdBuff;

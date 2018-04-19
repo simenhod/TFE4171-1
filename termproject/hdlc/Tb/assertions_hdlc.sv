@@ -21,6 +21,7 @@ module assertions_hdlc (
 		input logic					Rx_Overflow,
 		input logic					Rx_NewByte,
 		input logic					Rx_FrameError,
+		input logic					Rx_FCSerr,
 		input logic					Tx,
 		input logic					Tx_DataAvail,
 		input logic					Tx_RdBuff,
@@ -96,7 +97,7 @@ endproperty
 
 // 7. Idle pattern generation and checking (1111_1111 when not operating).
 property Behaviour_7();
-		@(posedge Clk) disable iff (!Rst)  Tx_IdleFrame_Seq implies (!Tx_ValidFrame[*8] and !Rx_FrameError[*8]);
+		@(posedge Clk) disable iff (!Rst) !Tx_ValidFrame && Tx_FrameSize==8'd0 |-> Tx_IdleFrame_Seq;
 endproperty
 
 // 8. Abort pattern generation and checking (1111_1110).
@@ -130,9 +131,14 @@ endproperty
 // --- Immediate assertion ---
 
 // 15. Rx_Ready should indicate byte(s) in RX buffer is ready to be read.
+property Behaviour_15;
+		@(posedge Clk) disable iff (!Rst) $rose(Rx_Ready) |-> $rose(Rx_EoF) && !Rx_ValidFrame;
+endproperty
 
 // 16. Non-byte aligned data or error in FCS checking should result in frame error.
-
+property Behaviour_16();
+		@(posedge Clk) disable iff (!Rst) $rose(Rx_FCSerr) |-> ##1 $rose(Rx_FrameError);
+endproperty
 // 17. Tx_Done should be asserted when the entire TX buffer has been read for transmission.
 property Behaviour_17;
 		@(posedge Clk) disable iff (!Rst) $fell(Tx_DataAvail) |-> $rose($past(Tx_Done));
@@ -156,8 +162,8 @@ Behaviour_3_Assert: assert property (Behaviour_3) $display("PASS 3: Correct bits
 Behaviour_5_Assert: assert property (Behaviour_5) $display("PASS 5: Start and end frame generated");
 				else begin $error("FAIL 5: Start and end frame not generated"); ErrCntAssertions++; end
 
-//Behaviour_7_Assert: assert property (Behaviour_7) $display("PASS 7: Idle pattern generated successfully");
-//				else begin $error("Failed to generate idle pattern"); ErrCntAssertions++; end
+//Behaviour_7_Assert: assert property (Behaviour_7) $display("PASS 7: Tx idle pattern generated successfully");
+//				else begin $error("FAIL 7: Failed to generate Tx idle pattern"); ErrCntAssertions++; end
 
 Behaviour_8_Assert: assert property (Behaviour_8) $display("PASS 8: Abort pattern generated successfully");
 				else begin $error("FAIL 8: Failed to generate abort pattern"); ErrCntAssertions++; end
@@ -173,6 +179,12 @@ Behaviour_12_Assert: assert property (Behaviour_12) $display("PASS 12: Rx_EoF ge
 
 Behaviour_13_Assert: assert property (Behaviour_13) $display("PASS 13: Rx_Overflow set when recieveing more that 128 bytes");
 				else begin $error("FAIL 13: Rx_Overflow not set"); ErrCntAssertions++; end
+
+Behaviour_15_Assert: assert property (Behaviour_15) $display("PASS 15: Rx_Ready set after entire frame is recieved");
+				else begin $error("FAIL 15: Rx_Ready not set"); ErrCntAssertions++; end
+
+Behaviour_16_Assert: assert property (Behaviour_16) $display("PASS 16: Rc_FrameError set after Rx_FCSerr");
+				else begin $error("FAIL 16: Rx_FrameError not set after Rx_FCSerr"); ErrCntAssertions++; end
 
 Behaviour_17_Assert: assert property (Behaviour_17) $display("PASS 17: Tx_Done is high after transmission");
 				else begin $error("FAIL 17: Tx_Done is not high after transmission"); ErrCntAssertions++; end

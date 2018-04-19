@@ -1,7 +1,7 @@
 # vsim -assertdebug -c -voptargs="+acc" test_hdlc bind_hdlc -do "
 # log -r *
 # run -all; exit" 
-# Start time: 15:44:06 on Apr 17,2018
+# Start time: 13:38:10 on Apr 19,2018
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "TxFCS(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "RxBuff(fast)".
@@ -49,6 +49,7 @@
 # PASS: Receive_FlagDetect
 # PASS: Receive_FlagDetect
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS 12: Rx_EoF generated after whole frame is revieved
 # PASS 1: Correct data in Rx_Buff according to RX input
 # 
@@ -57,6 +58,7 @@
 # PASS 8: Abort pattern generated successfully
 # PASS 10: Abort pattern detected during valid frame generates Rx_AbortSignal
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS: Receive_FlagDetect
 # PASS 2: Correct data in Rx_Buff after aborted frame
 # PASS: Receive_FlagDetect
@@ -68,17 +70,19 @@
 # PASS 3: Correct bits set in Rx_SC
 # PASS 12: Rx_EoF generated after whole frame is revieved
 # PASS: Receive_FlagDetect
-# PASS 2: Correct data in Rx_Buff after Rx_Drop
-# 
-# --- Behaviour 3 ---
-# PASS: Receive_FlagDetect
-# PASS: Receive_FlagDetect
-# PASS 3: Correct bits set in Rx_SC
-# PASS 12: Rx_EoF generated after whole frame is revieved
-# PASS: Receive_FlagDetect
-# PASS: Receive_FlagDetect
-# PASS 3: Correct bits set in Rx_SC
-# PASS 12: Rx_EoF generated after whole frame is revieved
+# PASS 2: Correct data in Rx_add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/Tx_Data
+add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/Tx_DataArray
+add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/Tx_DataOutBuff
+add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/Tx_WrBuff
+add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/Tx_DataInBuff
+add wave -position insertpoint  \
+vsim:/test_hdlc/u_dut/DataOut
+x_EoF generated after whole frame is revieved
 # PASS 13: Rx_Overflow set when recieveing more that 128 bytes
 # PASS: Receive_FlagDetect
 # PASS: Receive_FlagDetect
@@ -88,6 +92,7 @@
 # PASS 8: Abort pattern generated successfully
 # PASS 10: Abort pattern detected during valid frame generates Rx_AbortSignal
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS: Receive_FlagDetect
 # 
 # --- Behaviour 4 ---
@@ -105,10 +110,6 @@
 # 
 # --- Behaviour 8 ---
 # PASS: Receive_FlagDetect
-# PASS 8: Abort pattern generated successfully
-# PASS 10: Abort pattern detected during valid frame generates Rx_AbortSignal
-# Rx_Buff=00000000
-# Rx_SC=00101000
 # 
 # --- Behaviour 9 ---
 # PASS 9: Tx_AbortedTrans was set on Tx_AbortFrame
@@ -119,6 +120,7 @@
 # PASS 8: Abort pattern generated successfully
 # PASS 10: Abort pattern detected during valid frame generates Rx_AbortSignal
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # 
 # --- Behaviour 11 ---
 # 
@@ -126,12 +128,14 @@
 # PASS: Receive_FlagDetect
 # PASS: Receive_FlagDetect
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS 12: Rx_EoF generated after whole frame is revieved
 # 
 # --- Behaviour 13 ---
 # PASS: Receive_FlagDetect
 # PASS: Receive_FlagDetect
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS 12: Rx_EoF generated after whole frame is revieved
 # PASS 13: Rx_Overflow set when recieveing more that 128 bytes
 # 
@@ -139,12 +143,28 @@
 # PASS: Receive_FlagDetect
 # PASS: Receive_FlagDetect
 # PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
 # PASS 12: Rx_EoF generated after whole frame is revieved
 # PASS 14: Rx_FrameSize equals number of bytes recieved in a frame
 # 
 # --- Behaviour 15 ---
+# PASS: Receive_FlagDetect
+# PASS: Receive_FlagDetect
+# PASS 3: Correct bits set in Rx_SC
+# PASS 15: Rx_Ready set after entire frame is recieved
+# PASS 12: Rx_EoF generated after whole frame is revieved
 # 
 # --- Behaviour 16 ---
+# PASS: Receive_FlagDetect
+# PASS: Receive_FlagDetect
+# PASS 16: Rx_FrameError set after non-byte aligned data
+# PASS 3: Correct bits set in Rx_SC
+# PASS 12: Rx_EoF generated after whole frame is revieved
+# PASS: Receive_FlagDetect
+# PASS: Receive_FlagDetect
+# PASS 16: Rc_FrameError set after Rx_FCSerr
+# PASS 3: Correct bits set in Rx_SC
+# PASS 12: Rx_EoF generated after whole frame is revieved
 # 
 # --- Behaviour 17 ---
 # PASS 17: Tx_Done is high after transmission
@@ -153,10 +173,10 @@
 # --- Behaviour 18 ---
 # PASS 18: Tx_Full set when buffer is full
 # *************************************************************
-#              2042250 - Finishing Test Program
+#              2149250 - Finishing Test Program
 # *************************************************************
 # ** Note: $stop    : testPr_hdlc.sv(106)
-#    Time: 2042250 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
+#    Time: 2149250 ns  Iteration: 1  Instance: /test_hdlc/u_testPr
 # Break in Module testPr_hdlc at testPr_hdlc.sv line 106
 # Stopped at testPr_hdlc.sv line 106
 #  exit
@@ -165,5 +185,5 @@
 # * 	Assertion Errors: 0	  *
 # *                               *
 # *********************************
-# End time: 15:44:10 on Apr 17,2018, Elapsed time: 0:00:04
+# End time: 13:38:13 on Apr 19,2018, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0

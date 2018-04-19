@@ -27,7 +27,7 @@ initial begin
     //Tests:
     //Receive();
 		//reset();
-		
+	
 		$display("\n--- Behaviour 1 ---");
 		Behaviour_1();
 		reset();
@@ -43,7 +43,7 @@ initial begin
 		$display("\n--- Behaviour 4 ---");
 		Behaviour_4();
 		reset();
-		
+	
 		$display("\n--- Behaviour 5 ---");
 		Behaviour_5();
 		reset();
@@ -55,7 +55,7 @@ initial begin
 		$display("\n--- Behaviour 7 ---");
 		Behaviour_7();
 		reset();
-		
+
 		$display("\n--- Behaviour 8 ---");
 		Behaviour_8();
 		reset();
@@ -85,12 +85,12 @@ initial begin
 		reset();
 		
 		$display("\n--- Behaviour 15 ---");
-		//Behaviour_15();
-		//reset();
-		
+		Behaviour_15();
+		reset();		
+
 		$display("\n--- Behaviour 16 ---");
-		//Behaviour_16();
-		//reset();
+		Behaviour_16();
+		reset();
 		
 		$display("\n--- Behaviour 17 ---");
     Behaviour_17();
@@ -99,7 +99,7 @@ initial begin
 		$display("\n--- Behaviour 18 ---");
     Behaviour_18();
 		reset();
-    
+
     $display("*************************************************************");
     $display("%t - Finishing Test Program", $time);
     $display("*************************************************************");
@@ -316,7 +316,7 @@ task Behaviour_5();
 endtask
 
 task Behaviour_7();
-		for(int i=0; i<8; i++) begin
+		for(int i=0; i<10; i++) begin
 				@(posedge uin_hdlc.Clk);
 		end
 endtask
@@ -393,11 +393,9 @@ task Behaviour_10();
 endtask
 
 task Behaviour_12();
-		logic [7:0] Rx_FCSen;
 		logic [7:0] Rx_Buff_Data;
 		logic [7:0] Data;
 		Data = 8'b11100101;
-		Rx_FCSen = 8'b00100000;
 		
 		// Send HDLC Frame
 		Flag();
@@ -471,6 +469,86 @@ task Behaviour_14();
 				$display("PASS 14: Rx_FrameSize equals number of bytes recieved in a frame");
 		end else begin
 				$error("FAIL 14: Rx_FrameSize not equal number of bytes recieved");
+		end
+endtask
+
+task Behaviour_15();
+		logic [7:0] Data;
+		Data = 8'b11100101;
+		
+		// Send HDLC Frame
+		Flag();
+		Address();
+		Control();
+		for(int i = 0; i < $size(Data); i++) begin
+				uin_hdlc.Rx = Data[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		FCS();
+		Flag();
+		
+		// Wait for module to finish
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+endtask
+
+task Behaviour_16();
+		logic [7:0] Rx_FCSen;
+		logic [7:0] Data;
+		logic [8:0] Data_error;
+		Data = 8'b11100101;
+		Data_error = 9'b111100101;
+		Rx_FCSen = 8'b00100000;
+	
+		// Non-byte aligned
+		// Send HDLC Frame
+		Flag();
+		Address();
+		Control();
+		for(int i = 0; i < $size(Data_error); i++) begin
+				uin_hdlc.Rx = Data_error[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		FCS();
+		Flag();
+		
+		// Wait until frame is done recieving
+		do 
+				begin
+						@(posedge uin_hdlc.Clk);
+				end
+		while(!uin_hdlc.Rx_EoF);
+
+		assert (uin_hdlc.Rx_FrameError) begin
+				$display("PASS 16: Rx_FrameError set after non-byte aligned data"); 
+		end else begin
+				$error("FAIL 16: Rx_FrameError not set after non-byte aligned data");
+		end
+		
+		// Wait for module to finish
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
+		end
+
+		// FCS error
+		WriteAddress(Rx_SC, Rx_FCSen);
+		@(posedge uin_hdlc.Clk);
+
+		// Send HDLC Frame
+		Flag();
+		Address();
+		Control();
+		for(int i = 0; i < $size(Data); i++) begin
+				uin_hdlc.Rx = Data[i];
+				@(posedge uin_hdlc.Clk);
+		end
+		FCS();
+		Flag();
+		
+		// Wait for module to finish
+		for(int i = 0; i <10; i++) begin
+				@(posedge uin_hdlc.Clk);
 		end
 endtask
 
