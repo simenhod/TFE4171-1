@@ -31,7 +31,7 @@ module test_hdlc ();
 		assign uin_hdlc.Tx_AbortFrame = u_dut.Tx_AbortFrame;
 		assign uin_hdlc.Tx_AbortedTrans = u_dut.Tx_AbortedTrans;
 		assign uin_hdlc.Tx_DataOutBuff = u_dut.Tx_DataOutBuff;
-
+		assign uin_hdlc.Tx_Data = u_dut.Tx_Data;
 		//Clock
 		always #250ns uin_hdlc.Clk = ~uin_hdlc.Clk;
 

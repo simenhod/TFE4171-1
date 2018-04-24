@@ -33,7 +33,8 @@ module bind_hdlc ();
     .Tx_ValidFrame(uin_hdlc.Tx_ValidFrame),
     .Tx_AbortFrame(uin_hdlc.Tx_AbortFrame),
 		.Tx_AbortedTrans(uin_hdlc.Tx_AbortedTrans),
-		.Tx_DataOutBuff(uin_hdlc.Tx_DataOutBuff)
+		.Tx_DataOutBuff(uin_hdlc.Tx_DataOutBuff),
+		.Tx_Data(uin_hdlc.Tx_Data)
   );
 
 endmodule

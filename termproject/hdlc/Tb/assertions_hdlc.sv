@@ -31,7 +31,8 @@ module assertions_hdlc (
 		input logic					Tx_ValidFrame,
 		input logic					Tx_AbortFrame,
 		input logic					Tx_AbortedTrans,
-		input logic [7:0]		Tx_DataOutBuff
+		input logic [7:0]		Tx_DataOutBuff,
+		input logic [7:0]		Tx_Data
   );
 
   initial begin
@@ -56,6 +57,10 @@ endsequence
 
 sequence Tx_IdleFrame_Seq;
 		Tx[*8];
+endsequence
+
+sequence seq_tx;    
+   !Tx and $past(Tx) and $past(Tx,2) and $past(Tx,3) and $past(Tx,4) and $past(Tx,5) and $past(!Tx,6);
 endsequence
 /************************
 *	Properties	*
@@ -94,6 +99,13 @@ property Behaviour_5;
 endproperty
 
 // 6. Zero insertion and removal for transparent transmission.
+property Behaviour_6_insert;
+   @(posedge Clk) disable iff (!Rst || !Tx_ValidFrame) seq_tx |-> $past(Tx_Data,23)==?8'bxx11111x or $past(Tx_Data,23)==?8'bx11111xx or $past(Tx_Data,23)==?8'b11111xxx;
+endproperty 
+
+property Behaviour_6_remove;
+    @(posedge Clk) disable iff (!Rst || !Tx_ValidFrame) $rose(Rx) ##1 Rx[*4] ##1 !Rx |->  ##13 (Rx_Data==?{8'bxx111111} or Rx_Data==?{8'bx111111x} or Rx_Data==?{8'b111111xx} or (Rx_Data==?8'b1xxxxxxx ##8 Rx_Data==?{8'bxxx11111}) or (Rx_Data==?8'b11xxxxxx ##8 Rx_Data==?{8'bxxxx1111}) or (Rx_Data==?8'b111xxxxx ##8 Rx_Data==?{8'bxxxxx111}) or (Rx_Data==?8'b1111xxxx ##8 Rx_Data==?{8'bxxxxxx11}) or (Rx_Data==?8'b11111xxx ##8 Rx_Data==?{8'bxxxxxxx1}));
+endproperty
 
 // 7. Idle pattern generation and checking (1111_1111 when not operating).
 property Behaviour_7();
@@ -116,6 +128,7 @@ property Behaviour_10;
 endproperty
 
 // 11. CRC generation and Checking.
+//--- Immediate assertion ---
 
 // 12. When a whole RX frame has been received, check if end of frame is generated.
 property Behaviour_12;
@@ -161,6 +174,12 @@ Behaviour_3_Assert: assert property (Behaviour_3) $display("PASS 3: Correct bits
 
 Behaviour_5_Assert: assert property (Behaviour_5) $display("PASS 5: Start and end frame generated");
 				else begin $error("FAIL 5: Start and end frame not generated"); ErrCntAssertions++; end
+
+Behaviour_6_insert_Assert: assert property (Behaviour_6_insert) $display("PASS 6 Tx: Insert success");
+		  else begin $error("ERROR 6: Tx - Failed to insert zero"); ErrCntAssertions++; end
+
+Behaviour_6_remove_Assert: assert property (Behaviour_6_remove) $display("PASS 6 Rx: Removal success");
+		  else begin $error("ERROR 6: Rx - Failed to remove zero"); ErrCntAssertions++; end
 
 //Behaviour_7_Assert: assert property (Behaviour_7) $display("PASS 7: Tx idle pattern generated successfully");
 //				else begin $error("FAIL 7: Failed to generate Tx idle pattern"); ErrCntAssertions++; end

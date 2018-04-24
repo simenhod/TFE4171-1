@@ -17,12 +17,91 @@ program testPr_hdlc(
 		parameter Rx_Buff = 3'b011;
 		parameter Rx_Len	= 3'b100;
 
+
+class Rx_Tx;
+		covergroup Rx_cg @(posedge uin_hdlc.Clk);
+				Rx_Overflow: coverpoint uin_hdlc.Rx_Overflow {
+            bins No_Rx_Overflow = {0};
+            bins Rx_Overflow = {1};
+        }
+				Rx_AbortSignal: coverpoint uin_hdlc.Rx_AbortSignal {
+            bins No_Rx_AbortSignal = {0};
+            bins Rx_AbortSignal = {1};
+        }
+        Rx_FrameError: coverpoint uin_hdlc.Rx_FrameError {
+            bins No_Rx_FrameError = {0};
+            bins Rx_FrameError = {1};
+        }
+				Rx_EoF: coverpoint uin_hdlc.Rx_EoF {
+						bins No_Rx_EoF = {0};
+						bins Rx_EoF = {1};
+				}
+				Rx_AbortDetect: coverpoint uin_hdlc.Rx_AbortDetect {
+						bins No_Rx_AbortDetect = {0};
+						bins Rx_AbortDetect = {1};
+				}
+				Rx_ValidFrame: coverpoint uin_hdlc.Rx_ValidFrame {
+						bins No_Rx_ValidFrame = {0};
+						bins Rx_ValidFrame = {1};
+				}
+				Rx_Ready: coverpoint uin_hdlc.Rx_Ready {
+						bins No_Rx_Ready = {0};
+						bins Rx_Ready = {1};
+				}
+				Rx_FCSerr: coverpoint uin_hdlc.Rx_FCSerr {
+						bins No_Rx_FCSerr = {0};
+						bins Rx_FCSerr = {1};
+				}
+				Rx_FrameSieze: coverpoint uin_hdlc.Rx_FrameSize {
+						bins Rx_FrameSize_Zero = {0};
+						bins Rx_FrameSize_Valid = {[1:125]};
+						bins Rx_FrameSize_Overflow = {126};
+				}
+		endgroup
+		
+		covergroup Tx_cg @(posedge uin_hdlc.Clk);
+				Tx_Done: coverpoint uin_hdlc.Tx_Done {
+						bins No_Tx_Done = {0};
+						bins Tx_Done = {1};
+				} 
+				Tx_Full: coverpoint uin_hdlc.Tx_Full {
+						bins No_Tx_Full = {0};
+						bins Tx_Full = {1};
+				}
+				Tx_ValidFrame: coverpoint uin_hdlc.Tx_ValidFrame {
+						bins No_Tx_ValidFrame = {0};
+						bins Tx_ValidFrame = {1};
+				}
+				Tx_AbortFrame: coverpoint uin_hdlc.Tx_AbortFrame {
+						bins No_Tx_AbortFrame = {0};
+						bins Tx_AbortFrame = {1};
+				}
+				Tx_AbortedTrans: coverpoint uin_hdlc.Tx_AbortedTrans {
+						bins No_Tx_AbortedTrans = {0};
+						bins Tx_AbortedTrans = {1};
+				
+				}
+				Tx_DataAvail: coverpoint uin_hdlc.Tx_DataAvail {
+						bins No_Tx_DataAvail = {0};
+						bins Tx_DataAvail = {1};
+				}
+		endgroup
+
+		function new();
+				Rx_cg = new;
+				Tx_cg = new;
+		endfunction
+endclass
+
+Rx_Tx Rx_Tx_init;
+
 initial begin
     $display("*************************************************************");
     $display("%t - Starting Test Program", $time);
     $display("*************************************************************");
 
     init();
+		Rx_Tx_init = new();
 
     //Tests:
     //Receive();
@@ -49,8 +128,8 @@ initial begin
 		reset();
 		
 		$display("\n--- Behaviour 6 ---");
-		//Behaviour_6();
-		//reset();
+		Behaviour_6();
+		reset();
 		
 		$display("\n--- Behaviour 7 ---");
 		Behaviour_7();
@@ -69,8 +148,8 @@ initial begin
 		reset();
 		
 		$display("\n--- Behaviour 11 ---");
-		//Behaviour_11();
-		//reset();
+		Behaviour_11();
+		reset();
 		
 		$display("\n--- Behaviour 12 ---");
 		Behaviour_12();
@@ -117,7 +196,8 @@ end
 task Behaviour_1();
 		logic [7:0] Rx_Buff_Data;
 		logic [7:0] Data;
-		Data = 8'b11100101;
+		Data = $urandom();
+		//$display("Data: %b", Data);
 		
 		// Send HDLC Frame
 		Flag();
@@ -151,7 +231,7 @@ task Behaviour_2();
 		logic [8:0] Data_FrameError;
 		Rx_Buff_Fail = 8'b00000000;
 		Rx_Drop = 8'b00000010;
-		Data = 8'b11100101;
+		Data = $urandom();
 		Data_FrameError = 9'b111100101;
 		
 		// Abort frame
@@ -191,8 +271,8 @@ task Behaviour_2();
 		
 		// Rx_Drop
 		Flag();
-		for(int i = 0; i < $size(Data_FrameError); i++) begin
-				uin_hdlc.Rx = Data_FrameError[i];
+		for(int i = 0; i < $size(Data); i++) begin
+				uin_hdlc.Rx = Data[i];
 				@(posedge uin_hdlc.Clk);
 		end
 		Flag();
@@ -212,11 +292,13 @@ endtask
 task Behaviour_3();
 		logic [7:0] Data;
 		logic [8:0] Data_FrameError;
-		Data = 8'b11100101;
+		Data = $urandom();
 		Data_FrameError = 9'b111100101;
 		
 		// Send normal frame
 		Flag();
+		Address();
+		Control();
 		for(int i = 0; i < 10; i++) begin
 				for(int j = 0; j < $size(Data); j++) begin
 						uin_hdlc.Rx = Data[j];
@@ -230,6 +312,8 @@ task Behaviour_3();
 
 		// Overflow
 		Flag();
+		Address();
+		Control();
 		for(int i = 0; i < 130; i++) begin
 				for(int j = 0; j < $size(Data); j++) begin
 						uin_hdlc.Rx = Data[j];
@@ -243,6 +327,8 @@ task Behaviour_3();
 		
 		// FrameError
 		Flag();
+		Address();
+		Control();
 		for(int i = 0; i < 10; i++) begin
 				for(int j = 0; j < $size(Data_FrameError); j++) begin
 						uin_hdlc.Rx = Data_FrameError[j];
@@ -256,6 +342,8 @@ task Behaviour_3();
 
 		// AbortFrame()
 		Flag();
+		Address();
+		Control();
 		for(int i = 0; i < 10; i++) begin
 				for(int j = 0; j < $size(Data); j++) begin
 						uin_hdlc.Rx = Data[j];
@@ -272,7 +360,7 @@ endtask
 task Behaviour_4();
 		logic [7:0] Data;
 		logic [7:0] Tx_Enable;
-		Data = 8'b11100101;
+		Data = $urandom();
 		Tx_Enable = 8'b00000010;
 		
 		// Write data to Tx_Buff
@@ -299,13 +387,16 @@ endtask
 task Behaviour_5();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
-    Data = 8'b11100101;
+    Data = $urandom();
     Tx_Enable = 8'b0000010;
 
     // Write data to Tx_Buff
     WriteAddress(Tx_Buff, Data);
     @(posedge uin_hdlc.Clk);
-    
+    WriteAddress(Tx_Buff, Data);
+    @(posedge uin_hdlc.Clk);
+    WriteAddress(Tx_Buff, Data);
+    @(posedge uin_hdlc.Clk);
     // Tx_Enable
     WriteAddress(Tx_SC, Tx_Enable);
     
@@ -313,6 +404,33 @@ task Behaviour_5();
     for(int i = 0; i < 100; i++) begin
 				@(posedge uin_hdlc.Clk);
     end
+endtask
+
+task Behaviour_6();
+    // data_hdlc inputValue;
+    logic [7:0] readData;
+    logic [7:0] dataIn;
+    logic [7:0] transmitData;
+    dataIn = 255;
+    transmitData = 8'b0000010;
+    
+		for(int j = 0; j < 4; j=j+1) begin
+        //ReadAddress(Tx_Buff, readData);
+        WriteAddress(Tx_Buff, dataIn);
+		end
+		
+    @(posedge uin_hdlc.Clk);    
+    WriteAddress(Tx_SC, transmitData);
+    
+		repeat(10)
+        @(posedge uin_hdlc.Clk)
+    for(int j = 0; j < 15; j=j+1) begin
+      //#20;
+				@(posedge uin_hdlc.Clk);
+        uin_hdlc.Rx = uin_hdlc.Tx;
+
+		end
+
 endtask
 
 task Behaviour_7();
@@ -324,12 +442,15 @@ endtask
 task Behaviour_8();
 		logic [7:0] Rx_FCSen;
 		Rx_FCSen =  8'b00100000;
-    WriteAddress(3'b010, Rx_FCSen);
+    WriteAddress(Rx_SC, Rx_FCSen);
 		Flag();
-		//Address();
-		//Control();
+		Address();
+		Control();
 		AbortFrame();
-		@(posedge uin_hdlc.Clk);
+		// Wait for module to finish
+    for(int i = 0; i < 20; i++) begin
+				@(posedge uin_hdlc.Clk);
+    end
 		//ReadRxBuff();
 		//ReadRxSC();
 
@@ -339,7 +460,7 @@ task Behaviour_9();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
 		logic [7:0] Tx_AbortFrame;
-    Data = 8'b11100101;
+    Data = $urandom();
     Tx_Enable = 8'b0000010;
 		Tx_AbortFrame = 8'b00000110;
 
@@ -392,10 +513,44 @@ task Behaviour_10();
 		//ReadRxSC();
 endtask
 
+task Behaviour_11();
+		automatic logic [127:0][7:0] DataArray = 1'b0;
+		logic [7:0] Num_Bytes;
+    logic [15:0] CRC;
+		logic [15:0] CRC_check;
+    logic [23:0] tmp;
+		
+		Num_Bytes = 6;
+		DataArray[48:0] = 48'b100101000000000111111111111111111111111111111111;
+		CRC_check = {DataArray[Num_Bytes-1],DataArray[Num_Bytes-2]};
+		DataArray[Num_Bytes-1] = 1'b0;
+    DataArray[Num_Bytes-2] = 1'b0;
+		tmp[7:0]  = DataArray[0];
+    tmp[15:8] = DataArray[1];
+    
+		for (int i = 2; i < Num_Bytes; i++) begin
+      tmp[23:16] = DataArray[i];
+      for (int j = 0; j < 8; j++) begin
+        tmp[16] = tmp[16] ^ tmp[0];
+        tmp[14] = tmp[14] ^ tmp[0];
+        tmp[1]  = tmp[1]  ^ tmp[0];
+        tmp[0]  = tmp[0]  ^ tmp[0];
+        tmp = tmp >> 1;
+      end
+    end
+    CRC = tmp[15:0];
+		
+		assert (CRC[15:0] == CRC_check[15:0]) begin
+				$display("PASS 11: CRC generated succesfully");
+		end else begin
+				$error("ERROR 11: Did not generate CRC");
+		end
+endtask
+
 task Behaviour_12();
 		logic [7:0] Rx_Buff_Data;
 		logic [7:0] Data;
-		Data = 8'b11100101;
+		Data = $urandom();
 		
 		// Send HDLC Frame
 		Flag();
@@ -421,7 +576,7 @@ endtask
 
 task Behaviour_13();
 		logic [7:0] Data;
-		Data = 8'b11100101;
+		Data = $urandom();
 		
 		// Send on Rx
 		Flag();
@@ -445,7 +600,7 @@ task Behaviour_14();
 		logic [7:0] numBytes;
 		logic [7:0] Data;
 		numBytes = $urandom_range(126, 1);
-		Data = 8'b11100101;
+		Data = $urandom();
 		
 		// Send frame on Rx
 		Flag();
@@ -474,7 +629,7 @@ endtask
 
 task Behaviour_15();
 		logic [7:0] Data;
-		Data = 8'b11100101;
+		Data = $urandom();
 		
 		// Send HDLC Frame
 		Flag();
@@ -497,7 +652,7 @@ task Behaviour_16();
 		logic [7:0] Rx_FCSen;
 		logic [7:0] Data;
 		logic [8:0] Data_error;
-		Data = 8'b11100101;
+		Data = $urandom;
 		Data_error = 9'b111100101;
 		Rx_FCSen = 8'b00100000;
 	
@@ -555,7 +710,7 @@ endtask
 task Behaviour_17();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
-    Data = 8'b11100101;
+    Data = $urandom();
     Tx_Enable = 8'b0000010;
 
     // Write data to Tx_Buff
@@ -582,7 +737,7 @@ endtask
 task Behaviour_18();
     logic [7:0] Data;
     logic [7:0] Tx_Enable;
-    Data = 8'b11100101;
+    Data = $urandom();
     Tx_Enable = 8'b0000010;
 
     // Write data to Tx_Buff
@@ -724,6 +879,24 @@ task GenerateTestFrame();
 				end
 
 		$display("Test_Frame = %b", test_frame);
+endtask
+
+task FCS_new(input logic [127:0][7:0] Data, input logic [7:0] Num_Bytes, output logic [15:0] FCS_Data);
+    logic [23:0] Tmp;
+    Tmp[7:0]  = Data[0];
+    Tmp[15:8] = Data[1];
+
+    for (int i = 2; i < Num_Bytes + 2; i++) begin
+      Tmp[23:16] = Data[i];
+      for (int j = 0; j < 8; j++) begin
+        Tmp[16] = Tmp[16] ^ Tmp[0];
+        Tmp[14] = Tmp[14] ^ Tmp[0];
+        Tmp[1]  = Tmp[1]  ^ Tmp[0];
+        Tmp[0]  = Tmp[0]  ^ Tmp[0];
+        Tmp = Tmp >> 1;
+      end
+    end
+    FCS_Data = Tmp[15:0];
 endtask
 
 // HDLC Frame
